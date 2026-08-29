@@ -7,32 +7,27 @@ from typing import Dict, Union
 import json
 import prompts as pt
 
-os.environ["OPENAI_API_KEY"] =st.secrets["OPENAI_API_KEY"]
-#CONSTANTS
-MODEL="gpt-4o-mini"
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+# CONSTANTS
+MODEL = "gpt-4o-mini"
 
 # set the openai model
 llm = ChatOpenAI(model=MODEL, temperature=0)
 
+
 def language_corrector(text: str) -> Dict[str, Union[str, list]]:
     """
-    Analyzes text for grammatical errors in specified language.
-    
+    Analyzes text for grammatical errors and returns a structured result.
+
     Args:
         text: Input text to analyze
-        language: Target language for analysis (e.g., "French", "Spanish")
-    
+
     Returns:
-        Dictionary containing:
-        {
-            "original": str,
-            "corrected": str,
-            "errors": list[dict],
-            "overall_feedback": str
-        }
+        Dictionary containing "original", "corrected", "language", "status",
+        "errors" and "notes" — or an "error" key if the call or parse failed.
     """
     prompt = ChatPromptTemplate.from_template(pt.GRAMMAR_CHECKER_PROMPT)
-    model=llm
+    model = llm
     output_parser = StrOutputParser()
     chain = prompt | model | output_parser
 
