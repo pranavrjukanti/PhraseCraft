@@ -38,7 +38,19 @@ def language_corrector(text: str) -> Dict[str, Union[str, list]]:
 
     try:
         response = chain.invoke({"text": text})
-        return json.loads(response)
+    except Exception as exc:
+        return {"error": f"Could not reach the language model: {exc}"}
+
+    # The model sometimes wraps its JSON in a ``` fence despite the prompt.
+    cleaned = response.strip()
+    if cleaned.startswith("```"):
+        parts = cleaned.split("```")
+        cleaned = parts[1] if len(parts) > 1 else cleaned
+        if cleaned.lstrip().lower().startswith("json"):
+            cleaned = cleaned.lstrip()[4:]
+
+    try:
+        return json.loads(cleaned)
     except json.JSONDecodeError:
         return {
             "error": "Failed to parse response",

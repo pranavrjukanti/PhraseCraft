@@ -1,7 +1,6 @@
 import streamlit as st
-from grammarchecker import grammer_ui
+from grammarchecker import grammar_ui
 from PIL import Image
-##from grammarchecker import grammar_ui
 
 st.set_page_config(page_title="PhraseCraft",page_icon="💬")
 
@@ -26,6 +25,6 @@ if page=="Home":
     )
 if page=="Grammar Checker":
 
-    grammer_ui()
+    grammar_ui()
 
 

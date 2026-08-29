@@ -33,12 +33,12 @@ RULES:
 1. DECISION TREE:
    A. If text is PERFECT:
       - "status": "perfect"
-      - "corrected" = "original"
+      - "corrected" = "Input Correct"
       - "errors": []
       - Add positive reinforcement in "notes"
 
    B. If text has grammatical ERRORS:
-      - "status": "Incorrect"
+      - "status": "imperfect"
       - Correct ALL identifiable mistakes
       - Explain each error in its language
 

@@ -7,10 +7,11 @@ word=["Exploring","Reviewing","Analyzing","Understanding","Correcting","Enhancin
 
 
 
-def grammer_ui():
-    st.title("Grammer Checker")
-    st.write("Description")
-    user_input = st.text_area("sentence")
+def grammar_ui():
+    st.title("Grammar Checker")
+    st.write("Enter a sentence in any language. You'll get a corrected version "
+             "plus an explanation of each mistake, written in that same language.")
+    user_input = st.text_area("Your sentence")
     if st.button("Check my sentence"):
         if not user_input.strip():
             st.warning("Please Enter text")
@@ -25,7 +26,7 @@ def grammer_ui():
                     st.markdown("### Original Sentence")
                     st.text(result.get("original",""))
                 with col2:
-                    st.markdown(f"### Language: {result.get("language","unknown")}")
+                    st.markdown(f"### Language: {result.get('language','unknown')}")
                     st.text(f"status: {result.get('status','unclear')}")
                 
                 corrected = result.get("corrected","")
